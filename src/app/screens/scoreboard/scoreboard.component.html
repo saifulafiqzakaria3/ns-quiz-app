@@ -1,0 +1,51 @@
+
+<ScrollView orientation="vertical" *ngIf="!isLoading">
+  <DockLayout stretchLastChild="false" backgroundColor="#3c495e">
+    <FlexboxLayout dock="top" class="main">
+      <Label textAlignment="center" text="Quiz Submitted!" fontSize="36" color="white"></Label>
+      <Label textAlignment="center" text="Let's see the result.." fontSize="20" textWrap="true" color="white"></Label>
+      <Label *ngIf="quizAttempts.length < 1" textAlignment="center" text="No attempt found" fontSize="28" textWrap="true"
+        marginTop="50" backgroundColor="white" padding="30"></Label>
+      <FlexboxLayout class="table" *ngIf="quizAttempts.length > 0">
+        <ListView [items]="quizAttempts" class="list-group" backgroundColor="white" separatorColor="blue" [height]="quizAttempts.length * 180">
+          <ng-template let-attempt="item" let-index="index">
+            <!-- columns = width, row = height -->
+            <GridLayout columns="auto,*" rows="40, 40, 40, 40">
+              <Label row="0" text="Attempt" fontSize="24">
+                <FormattedString>
+                  <Span text="Attempt " fontAttributes="Bold"></Span>
+                  <Span [text]="index + 1"></Span>
+                </FormattedString>
+              </Label>
+              <Label class="row_title" text="Date/Time" row="1" col="0" backgroundColor="#289062"></Label>
+              <Label class="row_desc" [text]="attempt.dateTime | date:'short'" row="1" col="1" backgroundColor="#43b883"></Label>
+              <Label class="row_title" text="Duration" row="2" col="0" backgroundColor="#289062"></Label>
+              <Label class="row_desc" [text]="attempt.duration.substr(11,8)" row="2" col="1" backgroundColor="#43b883"></Label>
+              <Label class="row_title" text="Score" row="3" col="0" backgroundColor="#289062"></Label>
+              <Label class="row_desc" row="3" col="1" backgroundColor="#43b883">
+                <FormattedString>
+                  <Span [text]="attempt.totalCorrectAnswer"></Span>
+                  <Span text="/" fontAttributes="Bold"></Span>
+                  <Span [text]="attempt.totalQuestion"></Span>
+                </FormattedString>
+              </Label>
+            </GridLayout>
+          </ng-template>
+        </ListView>
+      </FlexboxLayout>
+
+    </FlexboxLayout>
+    <StackLayout dock="bottom">
+      <!-- <Button *ngIf="!isComingFromDashboard" width="50%" marginTop="30" borderColor="black" borderWidth="3" borderRadius="10" backgroundColor="#47bf4d"
+        color="#ffffff" fontSize="20" text="Review Quiz" (tap)="onTapReviewQuizButton($event)"></Button> -->
+      <Button width="50%" marginTop="15" textWrap="true" borderColor="black" borderWidth="3" borderRadius="10"
+        backgroundColor="blue" color="#ffffff" fontSize="20" text="Back to Dashboard"
+        (tap)="onTapNewQuizSessionButton($event)"></Button>
+      <Button width="50%" marginTop="15" borderColor="black" borderWidth="3" borderRadius="10" backgroundColor="red"
+        color="#ffffff" fontSize="20" text="Delete All Records" (tap)="onTapDeleteData()" [isEnabled]="quizAttempts.length > 0"></Button>
+    </StackLayout>
+  </DockLayout>
+</ScrollView>
+<FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading">
+  <ActivityIndicator busy="true" color="red" width="200" height="200"></ActivityIndicator>
+</FlexboxLayout>

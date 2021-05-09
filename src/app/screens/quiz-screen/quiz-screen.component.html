@@ -1,0 +1,46 @@
+<!-- <ActionBar title="Quiz"> -->
+<!-- For android, need to add our own navigation button. For ios actually dont need this -->
+<!-- <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+  <ActionItem ios.systemIcon="3" ios.position="right" android.systemIcon="ic_menu_save" android.position="actionBar">
+  </ActionItem>
+</ActionBar> -->
+
+<ScrollView orientation="vertical" backgroundColor="#3c495e">
+  <FlexboxLayout class="main-quiz-view">
+    <FlexboxLayout class="toogle-buttons-view">
+      <Button id="0" borderColor="red" borderWidth="2" text="Previous" (tap)="onTapToggleButton($event)" [isEnabled]="currentQuestionIndex != 0"></Button>
+      <Button id="1" borderColor="green" borderWidth="2" text="Next" (tap)="onTapToggleButton($event)" [isEnabled]="currentQuestionIndex < questionList.length - 1"></Button>
+    </FlexboxLayout>
+    <FlexboxLayout class="circle">
+      <Label class="time" [text]="time.toISOString().substr(11,8)"></Label>
+    </FlexboxLayout>
+    <Label class="title">
+      <FormattedString>
+        <Span text="Question " fontSize="36"></Span>
+        <Span [text]="currentQuestionIndex + 1" fontSize="36"></Span>
+        <Span text=" / " fontSize="20"></Span>
+        <Span [text]="questionList.length" fontSize="20"></Span>
+      </FormattedString>
+    </Label>
+    <StackLayout marginTop="20" orientation="horizontal" backgroundColor="#3c495e">
+      <Label class="category" [text]="questionList[currentQuestionIndex].category"></Label>
+      <Label class="category" [text]="questionList[currentQuestionIndex].difficulty" ></Label>
+    </StackLayout>
+    <StackLayout class="question-card">
+      <Label class="question" textWrap="true" [text]="currentQuestion"></Label>
+      <StackLayout class="answer-view">
+        <ListView [items]="currentQuestionAnswers" (itemTap)="onAnswerSelected($event)" [isUserInteractionEnabled]="selectedAnswerIndex == null" >
+          <ng-template let-answer="item" let-index="index" ngModel #answerCtrl="ngModel">
+            <StackLayout orientation="horizontal" [ngClass]="{selectedAnswer: index == selectedAnswerIndex}">
+              <Label width="85%" textWrap="true" [text]="answer"></Label>
+              <Label *ngIf="selectedAnswerIndex != null && index == correctAnswerIndex" width="15%" text="✅" textAlignment="center"></Label>
+            </StackLayout>
+          </ng-template>
+        </ListView>
+      </StackLayout>
+    </StackLayout>
+    <Label *ngIf="selectedAnswerIndex == correctAnswerIndex" marginTop="15" backgroundColor="green" text="Your answer is correct!" fontSize="16" color="white"></Label>
+    <Label *ngIf="selectedAnswerIndex != null && selectedAnswerIndex != correctAnswerIndex" marginTop="15" backgroundColor="red" text="Your answer is wrong!" fontSize="16" color="white"></Label>
+    <Button width="50%" marginTop="50" height="80" borderColor="black" borderWidth="3" borderRadius="10" backgroundColor="#47bf4d" color="#ffffff" fontSize="20" text="Submit Quiz" (tap)="onTapSubmitQuizButton($event)"></Button>
+  </FlexboxLayout>
+</ScrollView>

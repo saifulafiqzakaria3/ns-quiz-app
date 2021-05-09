@@ -1,0 +1,47 @@
+<!-- <ActionBar title="Trivia Quiz">
+    For android, need to add our own navigation button. For ios actually dont need this
+    <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+    <ActionItem ios.systemIcon="3" ios.position="right" android.systemIcon="ic_menu_save" android.position="actionBar">
+    </ActionItem>
+</ActionBar> -->
+
+<ScrollView orientation="vertical" *ngIf="!isLoading" backgroundColor="#3c495e">
+    <DockLayout stretchLastChild="false">
+        <FlexboxLayout class="form" dock="top">
+            <Image src="~/app/images/dashboardquiz.png" stretch="aspectFill" loadMode="async" width="100%" height="200" ngModel #quizImage="ngModel"></Image>
+            <StackLayout class="input-field" marginTop="30">
+                <StackLayout orientation="horizontal">
+                    <Label class="label" text="Number of Question: " paddingLeft="10"></Label>
+                    <TextField class="input" returnKeyType="next" [(ngModel)]="questionNumber" keyboardType="Number" (textChange)="onQuestionAmountInputChanged($event)">
+                    </TextField>
+                </StackLayout>
+                <Slider [value]="questionNumber" minValue="0" maxValue="50" (valueChange)="onSliderValueChange($event)">
+                </Slider>
+            </StackLayout>
+            <StackLayout class="input-field" marginTop="20">
+                <Label class="label" text="Select Category"></Label>
+                <ListPicker class="picker" [items]="categoryNameList"
+                    (selectedIndexChange)="selectedCategoryIndexChanged($event)"> </ListPicker>
+            </StackLayout>
+            <StackLayout class="input-field" marginTop="30">
+                <Label class="label" text="Select Difficulty"></Label>
+                <ListPicker class="picker" [items]="difficulties"
+                    (selectedIndexChange)="selectedDifficultyIndexChanged($event)"> </ListPicker>
+            </StackLayout>
+            <StackLayout class="input-field" marginTop="30">
+                <Label class="label" text="Select Question Type"></Label>
+                <ListPicker class="picker" [items]="questionTypes"
+                    (selectedIndexChange)="selectedTypeIndexChanged($event)">
+                </ListPicker>
+            </StackLayout>
+            <Button text="See previous score!" nsRouterLink="/scoreboard" textDecoration="underline"
+                color="orange" backgroundColor="transparent"></Button>
+            <Button class="btn-primary" text="Start Quiz" (tap)="onStartQuiz()"
+            [isEnabled]="questionNumber > 0 || questionNumber > 50"></Button>
+
+        </FlexboxLayout>
+    </DockLayout>
+</ScrollView>
+<FlexboxLayout justifyContent="center" alignItems="center" *ngIf="isLoading">
+    <ActivityIndicator busy="true" color="red" width="200" height="200"></ActivityIndicator>
+</FlexboxLayout>

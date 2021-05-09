@@ -1,0 +1,86 @@
+.main-quiz-view {
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.toogle-buttons-view {
+  margin-top: 30;
+  width: 90%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* align-self: center; to modify the position of items across the main axis. */
+}
+
+.title {
+  color: orange;
+  font-weight: bold;
+  border-bottom: lightcoral;
+  border-bottom-width: 1;
+  margin-top: 30;
+}
+
+.question {
+  font-size: 20;
+  font-weight: bold;
+}
+
+.question-card {
+  margin-top: 30;
+  padding: 20;
+  background-color: white;
+  width: 80%;
+  border-radius: 10;
+}
+
+.answer-view {
+  margin-top: 30;
+}
+
+.answer-button {
+  width: 100%;
+  border-radius: 10;
+  border-color: gray;
+  border-width: 1;
+}
+
+.selectedAnswer {
+  background-color: #f5f5ba;
+}
+
+.correctAnswer {
+  background-color: #4fd934;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 150;
+  width: 150;
+
+  border-width: 2;
+  border-color: black;
+  border-radius: 75;
+}
+
+.time {
+  font-family: "Roboto Mono", monospace;
+  padding: 10;
+  font-size: 20;
+  font-weight: bold;
+  color: coral;
+}
+
+.category {
+  border-color: orange;
+  border-width: 3;
+  border-radius: 10;
+  background-color: yellow;
+  color: black;
+  padding: 10;
+  margin: 5;
+  text-align: center;
+}
